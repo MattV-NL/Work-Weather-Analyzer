@@ -1,36 +1,27 @@
 import { createContext, useState } from 'react';
+import { DateTime } from 'luxon';
 
 export const DataContext = createContext();
 
-const DataContextProvider = (props) => {
+const DataContextProvider = ({ children }) => {
 
-  const newDate = new Date();
-  const d = newDate.getDate();
-  const dd = (d < 10 ? ("0" + d) : d);
-  const m = (newDate.getMonth() + 1);
-  const mm = (m < 10 ? ("0" + m) : 0);
-  const yyyy = newDate.getFullYear();
+  const date = DateTime.local(); 
 
-  const [weatherValues, setWeatherValues] = useState([
-    {date: `${yyyy}-${mm}-${dd}`, Precipitation: 0, WindSpeed: 0},
-    {date: `${yyyy}-${mm}-${dd + 1}`, Precipitation: 0, WindSpeed: 0},
-    {date: `${yyyy}-${mm}-${dd + 2}`, Precipitation: 0, WindSpeed: 0},
-    {date: `${yyyy}-${mm}-${dd + 3}`, Precipitation: 0, WindSpeed: 0},
-    {date: `${yyyy}-${mm}-${dd + 4}`, Precipitation: 0, WindSpeed: 0},
-    {date: `${yyyy}-${mm}-${dd + 5}`, Precipitation: 0, WindSpeed: 0},
-    {date: `${yyyy}-${mm}-${dd + 6}`, Precipitation: 0, WindSpeed: 0}
-  ]);
+  const [weatherValues, setWeatherValues] = useState(
+    Array(7).fill(date).map((date, index) => {
+      var nextDate = date.plus({ days: index })
+      return nextDate;
+    }).map((date) => ({date: date.toFormat('yyyy-MM-dd'), precip: 0, wind: 0}))
+  );
 
-  const submitWeatherValues = (weekday, precip, wind) => {
-    setWeatherValues((prevWeatherValues) =>
-      prevWeatherValues.map((weatherValue) => 
-        weatherValue.date === weekday ? {date: weekday, Precipitation: precip, WindSpeed: wind} : weatherValue
-      ));
+  const submitWeatherValues = (date, precip, wind) => {
+    setWeatherValues([...weatherValues, {date, precip, wind}]
+      );
   }
 
   return (
-    <DataContext.Provider value={{weatherValues, submitWeatherValues}}>
-      {props.children}
+    <DataContext.Provider value={{ weatherValues, submitWeatherValues }}>
+      {children}
     </DataContext.Provider>
   );
 }

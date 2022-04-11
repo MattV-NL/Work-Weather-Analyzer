@@ -7,19 +7,19 @@ const InputContextProvider = (props) => {
 
   const { submitWeatherValues } = useContext(DataContext);
 
-  const [weekday, setWeekday] = useState('');
+  const [date, setDate] = useState('');
   const [precip, setPrecip] = useState(null);
   const [wind, setWind] = useState(null);
 
   const weatherSubmit = (e) => {
     e.preventDefault();
-    submitWeatherValues(weekday, precip, wind);
-    setWeekday('');
+    submitWeatherValues(date, precip, wind);
+    setDate('');
     setPrecip(null);
     setWind(null);
   }
 
-  const submitWeekday = ({ target: { value }}) => setWeekday(value);
+  const submitDate = ({ target: { value }}) => setDate(value);
 
   const submitPrecip = ({ target: { value }}) => setPrecip(value);
 
@@ -27,10 +27,10 @@ const InputContextProvider = (props) => {
 
   return (
       <InputContext.Provider value={ 
-        {weekday, 
+        {date, 
         precip, 
         wind, 
-        submitWeekday, 
+        submitDate, 
         submitPrecip, 
         submitWind,
         weatherSubmit} 

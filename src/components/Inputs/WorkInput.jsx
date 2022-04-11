@@ -1,13 +1,14 @@
 import './inputs.scss';
 import WorkButton from './WorkButton';
 import { useState } from 'react';
+import Button from './Button';
 
 const WorkInput = () => {
 
-    const [location, setLocation] = useState(false);
+    const [isOutside, setIsOutside] = useState(false);
 
-    const switchLocation = () => {
-        setLocation(!location);
+    const switchIsOutside = () => {
+        setIsOutside(!isOutside);
     }
 
   return (
@@ -63,15 +64,7 @@ const WorkInput = () => {
                     type="checkbox"
                     
                 />
-                <div className='submit-button-container'>
-                    <button
-                        className='submit-button'
-                        style={{padding: '.1rem .5rem'}}
-                        type='button' 
-                        onClick={switchLocation}>
-                        {location ? "Outside" : "Inside"}
-                    </button>
-                </div>
+                <Button handleClick={switchIsOutside} name={isOutside ? "Outside" : "Inside"} />
             </div>    
         </form>
         <WorkButton />

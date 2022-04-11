@@ -1,17 +1,12 @@
 import { useContext } from "react";
 import { InputContext } from "../../contexts/InputContext";
+import Button from "./Button";
 
 const WeatherButton = () => {
   const { weatherSubmit } = useContext(InputContext);
   
   return (
-      <div className="submit-button-container">
-          <button 
-            className="submit-button" 
-            onClick={weatherSubmit}
-            >Submit
-          </button>
-      </div>
+      <Button handleClick={weatherSubmit} name='Submit'/>
   )
 
 }

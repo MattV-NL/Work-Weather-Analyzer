@@ -1,15 +1,10 @@
-const WorkButton = () => {
+import Button from "./Button";
 
-  
+const WorkButton = () => { 
   return (
-      <div className="submit-button-container">
-          <button 
-            className="submit-button">
-              Submit
-          </button>
-      </div>
+      <Button name='Submit'/>
   )
-
+  
 }
 
 export default WorkButton;

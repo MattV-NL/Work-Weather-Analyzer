@@ -2,29 +2,30 @@ import { useContext } from 'react';
 import { DataContext } from '../../contexts/DataContext';
 import WeatherInput from '../Inputs/WeatherInput';
 import './tables.scss';
+import WeatherTableHeader from './WeatherTableHeader';
 
 const RainfallTable = () => {
 
   const {weatherValues} = useContext(DataContext);
 
   return (
-      <table className="table">
-        <tbody>
-          <tr>
-            <th>Day of the Week</th>
-            <th>Rainfall Amount</th>
-            <th>Wind Speed</th>
-          </tr>
-          {weatherValues.map(({ date, Precipitation, WindSpeed }) => (
-              <tr key = {`${date} + ${Precipitation}`}>
-                <td>{date}</td>
-                <td>{Precipitation}</td>
-                <td>{WindSpeed}</td>
-              </tr>
-              ))}
-          <WeatherInput />  
-        </tbody>
-      </table>
+    <>
+      <WeatherTableHeader />
+        <div className="weather-table">
+          <table className='table'>
+            <tbody>
+              {weatherValues.map(({ date, precip, wind }) => (
+                  <tr key = {`${date}-${precip}`}>
+                    <td>{date}</td>
+                    <td>{precip}</td>
+                    <td>{wind}</td>
+                  </tr>
+                  ))}            
+            </tbody>
+          </table>
+        </div>
+      <WeatherInput />
+    </>
   );
 }
 

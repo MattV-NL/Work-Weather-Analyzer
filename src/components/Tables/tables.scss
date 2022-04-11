@@ -1,16 +1,32 @@
-.table {
+.weather-table {
+    height: auto;
+    max-height: 20rem;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.weather-table::-webkit-scrollbar {
+    display: none;
+}
+
+table.table {
     width: 100%;
 
     & tbody {
         background-color: var(--componentBackground);
     }
+    & th {
+        width: 12rem;
+        padding: 0.75rem;
+    }
     & tr {
         height: 1.5rem;
     }
     & td {
-        padding: 10px;
+        padding: 0.75rem;
         color: #000;
-        width: 8rem;
+        width: 12rem;
     }
     & input {
         width: 20vw;
